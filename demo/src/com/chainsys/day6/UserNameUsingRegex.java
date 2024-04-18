@@ -23,7 +23,7 @@ public class UserNameUsingRegex {
 
 	public static void main(String[] args)
 	{
-		String pattern[] = {"^[a-zA-Z0-9]+$","^[@]$","^[a-z]+$"};
+		String pattern[] = {"^[a-zA-Z0-9]+$","[@]","^[a-z]+$"};
 		System.out.println(userNameGenerator(8,pattern)+(userNameGenerator(1,pattern))+(userNameGenerator(3,pattern))+(".com"));	
 		}
 

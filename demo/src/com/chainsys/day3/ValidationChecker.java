@@ -3,14 +3,15 @@ package com.chainsys.day3;
 import java.util.Scanner;
 
 public class ValidationChecker {
-	
-		public boolean Numerics(int Number) {
-				if(Number < 0)
+	Scanner scan = new Scanner(System.in);
+		public boolean  Numerics(int Number) {
+				while(Number < 0)
 				{
-					System.out.println("Invalid Data");
-					return false;
+					System.out.println("Invalid Data\nEnter the Value Again : ");
+					Number = scan.nextInt();
+					
 				}
-			return true;
+			return false;
 		}
 		
 		public boolean Strings(String Str)

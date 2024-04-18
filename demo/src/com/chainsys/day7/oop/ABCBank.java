@@ -32,11 +32,15 @@ public class ABCBank {
 		
 		System.out.println("Enter Bank ID : ");
 		bp.setBankId(ABCBank.nextInt());
-		
+		while(!check.Numerics(bp.bankId))
+		{
+			System.out.println("Invalid data\nEnter The Bank ID Again : ");
+			bp.setBankId(ABCBank.nextInt());
+		}
 		
 		System.out.println("Enter the Phone Number  : ");
 		bp.setPhoneNumber(ABCBank.nextLong());
-		long pn = bp.getPhoneNumber();
+		
 		while(bp.getPhoneNumber() < 0)
 		{
 			System.out.println("invalid Data\nEnter The Phone Number Again : ");
@@ -57,5 +61,6 @@ public class ABCBank {
 		}
 		System.out.println("\n------------------------------------------");
 
+		ABCBank.close();
 	}
 }

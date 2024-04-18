@@ -44,6 +44,6 @@ public class TestStudentDetails {
 		details.setPresent(isPresent);
 		System.out.println(details.toString());	
 		
-		
+		scan.close();
 	}
 }
