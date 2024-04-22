@@ -8,7 +8,8 @@ public class ABCBank {
 	public static void main(String[] args) {
 		Scanner ABCBank = new Scanner(System.in);
 		Random random = new Random();
-			
+		bk b = new bk();
+		
 		String accPattern = "1234567890123456";
 		Bank bank = new Bank();
 		BankPojo bp = new BankPojo();
@@ -61,6 +62,9 @@ public class ABCBank {
 		}
 		System.out.println("\n------------------------------------------");
 
+		b.display();
+		b.bankName();
+		
 		ABCBank.close();
 	}
 }
