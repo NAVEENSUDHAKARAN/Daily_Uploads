@@ -30,5 +30,6 @@ public class WordSearch {
 		}
 		System.out.println("Count : " + count);
 
+		scanner.close();
 	}
 }
