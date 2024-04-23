@@ -53,17 +53,31 @@ public class ABCBank {
 		bank.deposit(bank.bp.bankName, bank.balance, bank.amount);
 		System.out.println("The Bank Name is : " + bp.getBankName());
 		System.out.println("The Bank ID is : " + bp.getBankId());
-		System.out.println("The Bank Name is : " + bp.getBankName());
 		System.out.println("Your Phone Number : " + bp.getPhoneNumber());
 		System.out.print("Your Account Number is : 0001");
 		for(int i=0; i<10; i+=1)
 		{
 			System.out.print(random.nextInt(accPattern.length()));
 		}
+		System.out.println("\nThe Interest Amount 2% is : " + b.interest(bank.amount));
+		
+		System.out.println("Would You Like To WithDraw The Amount (Y or N) : ");
+		String ch = ABCBank.next();
+		if(ch.toLowerCase().equals("y"))
+		{
+			System.out.println("Enter The Amount to WithDraw : ");
+			int withDrawAmount = ABCBank.nextInt();
+			
+			System.out.println("The Available Balance is : " + b.withDraw(withDrawAmount));
+		}
+		
 		System.out.println("\n------------------------------------------");
 
 		b.display();
-		b.bankName();
+		if(10 > 5)
+		{
+			System.out.println(b.add());
+		}
 		
 		ABCBank.close();
 	}

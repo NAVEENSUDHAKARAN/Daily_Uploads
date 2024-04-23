@@ -8,16 +8,33 @@ public abstract class BankAbs implements BankInterface {
 		
 	}
 	
-	public abstract void bankName();
+	public abstract int interest(int num);
+	
+	public int withDraw(int num) {
+		int balance = 10000;
+		
+		
+		return balance - num;
+	}
 	
 }
 
 class bk extends BankAbs{
 
 	@Override
-	public void bankName() {
+	public int interest(int num) {
 		
-		System.out.println("asdfghj");
+		num *= 0.2;
+		
+		return num;
+	}
+	
+	public int add()
+	{
+		int a =5;
+		int b = a*5;
+		
+		return b;
 	}
 	
 }
