@@ -4,13 +4,172 @@ import java.util.Scanner;
 
 public class TestStock extends StockMethods {
 
-	public static void main(String[] args)
-	{
-		StockPojo pojo = new StockPojo();
+	public static void main(String[] args) {
+		// StockPojo pojo = new StockPojo();
 		Scanner TestStock = new Scanner(System.in);
-		ValidationChecker check = new ValidationChecker();
+		// ValidationChecker check = new ValidationChecker();
 		StockMethods sm = new StockMethods();
-		
+
+		System.out.println("Stock Management System of ABC Store\n");
+
+		System.out.println("Enter UserName : ");
+		String userName = TestStock.next();
+		System.out.println("Enter Password : ");
+		String password = TestStock.next();
+
+		while (!sm.userDetailsRead(userName, password)) {
+			System.out.println("Wrong UserName or PassWord");
+			System.out.println("Enter UserName Again: ");
+			userName = TestStock.next();
+			System.out.println("Enter Password Again: ");
+			password = TestStock.next();
+		}
+
+		{
+
+			System.out.println("LoggedIN Successfully\n");
+			System.out.println("1 ---> View Stock\n2 ---> Add Stock\n3 ---> Remove Stock");
+			int choose = TestStock.nextInt();
+			while (choose != 1 && choose != 2 && choose != 3) {
+				System.out.println("Enter The Valid Number : ");
+				choose = TestStock.nextInt();
+			}
+
+			if (choose == 1) {
+				System.out.println("\nChoose The Department");
+				System.out.println("1 ---> Mobile\n2 ---> Fruits\n3 ---> Jewellery");
+				int opt = TestStock.nextInt();
+				while (opt != 1 && opt != 2 && opt != 3) {
+					System.out.println("Enter The Valid Number : ");
+					opt = TestStock.nextInt();
+				}
+
+				if (opt == 1) {
+					System.out.println("\nChoose The Mobile To View Stock");
+					// System.out.println("1 ---> Asus\n2 ---> Vivo\n3 ---> Samsung");
+					sm.read("D:\\Mobiles.txt");
+					int mobileOpt = TestStock.nextInt();
+
+					while (mobileOpt != 1 && mobileOpt != 2 && mobileOpt != 3) {
+						System.out.println("Enter The Valid Number : ");
+						mobileOpt = TestStock.nextInt();
+					}
+
+					if (mobileOpt == 1) {
+						System.out.println("The Stock of Asus is : " + sm.asus());
+						System.out.println("The Current Available Stock is : " + (sm.asus() + sm.update("Asus")));
+					} else if (mobileOpt == 2) {
+						System.out.println("The Stock of Vivo is : " + sm.vivo());
+						System.out.println("The Current Available Stock is : " + (sm.vivo() + sm.update("Vivo")));
+					} else if (mobileOpt == 3) {
+						System.out.println("The Stock of Samsung is : " + sm.samsung());
+						System.out.println("The Current Available Stock is : " + (sm.samsung() + sm.update("Samsung")));
+					}
+
+				} else if (opt == 2) {
+					System.out.println("\nChoose The Fruits To View Stock");
+					// System.out.println("1 ---> Apple\n2 ---> Mango\n3 ---> Grapes");
+					sm.read("D:\\Fruits.txt");
+					int fruitOpt = TestStock.nextInt();
+
+					while (fruitOpt != 1 && fruitOpt != 2 && fruitOpt != 3) {
+						System.out.println("Enter The Valid Number : ");
+						fruitOpt = TestStock.nextInt();
+					}
+
+					if (fruitOpt == 1) {
+						System.out.println("The Stock of Apple(kgs) is : " + sm.apple());
+						System.out
+								.println("The Current Available Stock(kgs) is : " + (sm.apple() + sm.update("Apple")));
+					} else if (fruitOpt == 2) {
+						System.out.println("The Stock of Mango(kgs) is : " + sm.mango());
+						System.out
+								.println("The Current Available Stock(kgs) is : " + (sm.mango() + sm.update("Mango")));
+
+					} else if (fruitOpt == 3) {
+						System.out.println("The Stock of Grapes(kgs) is : " + sm.grapes());
+						System.out.println(
+								"The Current Available Stock(kgs) is : " + (sm.grapes() + sm.update("Grapes")));
+					}
+
+				} else if (opt == 3) {
+					System.out.println("\nChoose The Jewel To View Stock");
+					// System.out.println("1 ---> Chain\n2 ---> Ring\n3 ---> Bracelet");
+					sm.read("D:\\Jewellery.txt");
+					int jewelOpt = TestStock.nextInt();
+
+					while (jewelOpt != 1 && jewelOpt != 2 && jewelOpt != 3) {
+						System.out.println("Enter The Valid Number : ");
+						jewelOpt = TestStock.nextInt();
+					}
+
+					if (jewelOpt == 1) {
+						System.out.println("The Stock of Chain is : " + sm.chain());
+						System.out.println("The Current Available Stock is : " + (sm.chain() + sm.update("Chain")));
+					} else if (jewelOpt == 2) {
+						System.out.println("The Stock of Ring is : " + sm.ring());
+						System.out.println("The Current Available Stock is : " + (sm.ring() + sm.update("Ring")));
+
+					} else if (jewelOpt == 3) {
+						System.out.println("The Stock of Bracelet is : " + sm.bracelet());
+						System.out
+								.println("The Current Available Stock is : " + (sm.bracelet() + sm.update("Bracelet")));
+					}
+
+				}
+			} else if (choose == 2) {
+				System.out.println("Choose The Department To Add Stock\n");
+
+				System.out.println("1 ---> Mobile\n2 ---> Fruits\n3 ---> Jewellery");
+
+				int depChoose = TestStock.nextInt();
+
+				while (depChoose != 1 && depChoose != 2 && depChoose != 3 && depChoose != 0) {
+					System.out.println("Enter The Valid Number : ");
+					depChoose = TestStock.nextInt();
+				}
+
+				while (depChoose == 1 || depChoose == 2 || depChoose == 3 || depChoose == 0) {
+					if (depChoose == 1) {
+						System.out.println("---Add Stock of Mobiles---");
+						sm.write("D:\\Mobiles.txt");
+					} else if (depChoose == 2) {
+						System.out.println("---Add Stock of Fruits---");
+						sm.write("D:\\Fruits.txt");
+					} else if (depChoose == 3) {
+						System.out.println("---Add Stock of Jewellery---");
+						sm.write("D:\\Jewellery.txt");
+					} else if (depChoose == 0) {
+						break;
+					}
+				}
+
+			} else if (choose == 3) {
+				System.out.println("Choose The Department To Remove Stock\n");
+
+				System.out.println("1 ---> Mobile\n2 ---> Fruits\n3 ---> Jewellery");
+				int removeChoose = TestStock.nextInt();
+
+				while (removeChoose != 1 && removeChoose != 2 && removeChoose != 3) {
+					System.out.println("Enter The Valid Number : ");
+					removeChoose = TestStock.nextInt();
+				}
+
+				if (removeChoose == 1) {
+					sm.delete("D:\\Mobiles.txt");
+					System.out.println("---Stocks Removed---");
+				} else if (removeChoose == 2) {
+					sm.delete("D:\\Fruits.txt");
+					System.out.println("---Stocks Removed---");
+				} else if (removeChoose == 3) {
+					sm.delete("D:\\Jewellery.txt");
+					System.out.println("---Stocks Removed---");
+				}
+				TestStock.close();
+			}
+
+		}
+
 //		System.out.println("Enter Your Name : ");
 //		String stockHolderName = TestStock.next();
 //		pojo.setStockHolderName(stockHolderName);
@@ -20,7 +179,7 @@ public class TestStock extends StockMethods {
 //			System.out.println("Invalid Data\nEnter Your Name Again: ");
 //			stockHolderName = TestStock.next();
 //		}
-		
+
 //		System.out.println("Enter The product Name : ");
 //		String productName = TestStock.next();
 //		while(!check.str(productName))
@@ -28,119 +187,7 @@ public class TestStock extends StockMethods {
 //			System.out.println("Invalid Data\nEnter The Product Name Again: ");
 //			productName = TestStock.next();
 //		}	
-		
-		System.out.println("Stock Management System of ABC Store");
-		System.out.println("\nChoose The Department");
-		System.out.println("1 ---> Mobile\n2 ---> Fruits\n3 ---> Jewellery");
-		int opt = TestStock.nextInt();
-		while(opt != 1 && opt != 2 && opt != 3)
-		{
-			System.out.println("Enter The Valid Number : ");
-			opt = TestStock.nextInt();
-		}
-		
-		if(opt == 1)
-		{
-			System.out.println("\nChoose The Mobile To View Stock");
-			System.out.println("1 ---> Asus\n2 ---> Vivo\n3 ---> Samsung");
-			int mobileOpt = TestStock.nextInt();
-			
-			while(mobileOpt != 1 && mobileOpt != 2 && mobileOpt != 3)
-			{
-				System.out.println("Enter The Valid Number : ");
-				mobileOpt = TestStock.nextInt();
-			}
-			
-			if(mobileOpt == 1)
-			{
-				System.out.println("The Stock of Asus is : " + sm.asus());
-				System.out.println("The Current Available Stock is : " + (sm.asus() + sm.update("Asus")));
-			}
-			else if(mobileOpt == 2)
-			{
-				System.out.println("The Stock of Vivo is : " + sm.vivo());
-				System.out.println("The Current Available Stock is : " + (sm.vivo() + sm.update("Vivo")));
-			}
-			else if(mobileOpt == 3)
-			{
-				System.out.println("The Stock of Samsung is : " + sm.samsung());
-				System.out.println("The Current Available Stock is : " + (sm.samsung() + sm.update("Samsung")));
-			}
 
-		}
-		else if(opt == 2)
-		{
-			System.out.println("\nChoose The Fruits To View Stock");
-			System.out.println("1 ---> Apple\n2 ---> Mango\n3 ---> Grapes");
-			int fruitOpt = TestStock.nextInt();
-			
-			while(fruitOpt != 1 && fruitOpt != 2 && fruitOpt != 3)
-			{
-				System.out.println("Enter The Valid Number : ");
-				fruitOpt = TestStock.nextInt();
-			}
-			
-			if(fruitOpt == 1)
-			{
-				System.out.println("The Stock of Apple(kgs) is : " + sm.apple());
-				System.out.println("The Current Available Stock(kgs) is : " + (sm.apple() + sm.update("Apple")));
-			}
-			else if(fruitOpt == 2)
-			{
-				System.out.println("The Stock of Mango(kgs) is : " + sm.mango());
-				System.out.println("The Current Available Stock(kgs) is : " + (sm.mango() + sm.update("Mango")));
-				
-			}
-			else if(fruitOpt == 3)
-			{
-				System.out.println("The Stock of Grapes(kgs) is : " + sm.grapes());
-				System.out.println("The Current Available Stock(kgs) is : " + (sm.grapes() + sm.update("Grapes")));
-			}
-			
-		}
-		else if(opt == 3)
-		{
-			System.out.println("\nChoose The Jewel To View Stock");
-			System.out.println("1 ---> Chain\n2 ---> Ring\n3 ---> Bracelet");
-			int jewelOpt = TestStock.nextInt();
-			
-			while(jewelOpt != 1 && jewelOpt != 2 && jewelOpt != 3)
-			{
-				System.out.println("Enter The Valid Number : ");
-				jewelOpt = TestStock.nextInt();
-			}
-			
-			if(jewelOpt == 1)
-			{
-				System.out.println("The Stock of Chain is : " + sm.chain());
-				System.out.println("The Current Available Stock is : " + (sm.chain() + sm.update("Chain")));
-			}
-			else if(jewelOpt == 2)
-			{
-				System.out.println("The Stock of Ring is : " + sm.ring());
-				System.out.println("The Current Available Stock is : " + (sm.ring() + sm.update("Ring")));
-				
-			}
-			else if(jewelOpt == 3)
-			{
-				System.out.println("The Stock of Bracelet is : " + sm.bracelet());
-				System.out.println("The Current Available Stock is : " + (sm.bracelet() + sm.update("Bracelet")));
-			}
-		
-		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 //		System.out.println("Enter the Barcode : ");
 //		String barcode = TestStock.next();
 //		int bar = Integer.parseInt(barcode);
@@ -219,5 +266,4 @@ public class TestStock extends StockMethods {
 //		TestStock.close();
 	}
 
-	
 }

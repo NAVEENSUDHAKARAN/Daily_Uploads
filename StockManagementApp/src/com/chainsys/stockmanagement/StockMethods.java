@@ -1,5 +1,8 @@
 package com.chainsys.stockmanagement;
 
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class StockMethods {
@@ -30,6 +33,101 @@ public class StockMethods {
 
 		}
 		return addStock;
+	}
+	
+	public void delete(String path) {
+			
+			try {
+				FileWriter writer = new FileWriter(path);
+				
+				writer.write("");
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			
+		}
+	
+	public static void write(String p) {
+		Scanner scanner = new  Scanner(System.in);
+		try {
+
+			System.out.println("Enter the ID : ");
+			int id = scanner.nextInt();
+			System.out.println("Enter the Product Name : ");
+			String productName = scanner.next();
+			FileWriter writer = new FileWriter(p, true);
+			
+			String str = id + " " + productName + " ";
+			writer.write(str);			
+			
+			writer.close();
+		
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void read(String path) {
+		try {
+			FileReader reader = new FileReader(path);
+			StringBuilder strBuilder = new StringBuilder();
+			int num;
+			char ch;
+			while((num = reader.read()) != -1)
+			{
+				ch = (char) num;
+				strBuilder.append(ch);
+			}
+			String[] str = strBuilder.toString().split(" ");
+			for(int i=0; i<str.length; i+=1)
+			{
+				System.out.println(str[i] + " ---> " + str[i+1]);
+				i+=1;
+			}
+			reader.close();		
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public  boolean userDetailsRead(String userName, String password) {
+		try {
+			FileReader reader = new FileReader("D:\\UserDetails.txt");
+			StringBuilder strBuilder = new StringBuilder();
+			int num;
+			char ch;
+
+			
+			String[] credentials = {userName, password};
+			
+			
+			while((num = reader.read()) != -1)
+			{
+				ch = (char) num;
+				strBuilder.append(ch);
+			}
+			String[] str = strBuilder.toString().split(" ");
+			for(int i=0; i<str.length; i+=1)
+			{
+				for(int j=0; j<credentials.length-1; j+=1)
+				{
+					if(str[i].equals(credentials[j]) && str[i+1].equals(credentials[j+1]) )
+					{
+							return true;					
+					}
+				}
+			}
+		
+	}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	public int asus() {
