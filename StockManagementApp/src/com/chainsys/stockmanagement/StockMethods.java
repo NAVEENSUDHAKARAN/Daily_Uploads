@@ -34,23 +34,21 @@ public class StockMethods {
 		}
 		return addStock;
 	}
-	
+
 	public void delete(String path) {
-			
-			try {
-				FileWriter writer = new FileWriter(path);
-				
-				writer.write("");
-			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
-			}
-			
+
+		try {
+			FileWriter writer = new FileWriter(path);
+
+			writer.write("");
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-	
+
+	}
+
 	public static void write(String p) {
-		Scanner scanner = new  Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
 		try {
 
 			System.out.println("Enter the ID : ");
@@ -58,12 +56,39 @@ public class StockMethods {
 			System.out.println("Enter the Product Name : ");
 			String productName = scanner.next();
 			FileWriter writer = new FileWriter(p, true);
-			
+
 			String str = id + " " + productName + " ";
-			writer.write(str);			
-			
+			writer.write(str);
+
 			writer.close();
-		
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void detailsWrite(String p) {
+		Scanner scanner = new Scanner(System.in);
+		try {
+
+			System.out.println("Enter the ID : ");
+			int id = scanner.nextInt();
+			System.out.println("Enter the Product Name : ");
+			String productName = scanner.next();
+			System.out.println("Enter the Number of Stock : ");
+			int numberOfStock = scanner.nextInt();
+			System.out.println("Enter the Stocked Date : ");
+			String stockedDate = scanner.next();
+			System.out.println("Enter the Price of " + productName + " : ");
+			int price = scanner.nextInt();
+			
+			FileWriter writer = new FileWriter(p, true);
+
+			String str = id + " " + productName + " " + numberOfStock + " " + stockedDate + " " + price + "\n";
+			writer.write(str);
+
+			writer.close();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -75,58 +100,42 @@ public class StockMethods {
 			StringBuilder strBuilder = new StringBuilder();
 			int num;
 			char ch;
-			while((num = reader.read()) != -1)
-			{
+			while ((num = reader.read()) != -1) {
 				ch = (char) num;
 				strBuilder.append(ch);
 			}
 			String[] str = strBuilder.toString().split(" ");
-			for(int i=0; i<str.length; i+=1)
-			{
-				System.out.println(str[i] + " ---> " + str[i+1]);
-				i+=1;
+			for (int i = 0; i < str.length; i += 1) {
+				System.out.println(str[i] + " ---> " + str[i + 1]);
+				i += 1;
 			}
-			reader.close();		
-		}
-		catch(Exception e)
-		{
+			reader.close();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public  boolean userDetailsRead(String userName, String password) {
+
+	public boolean userDetailsRead(String userName, String password) {
 		try {
 			FileReader reader = new FileReader("D:\\UserDetails.txt");
-			StringBuilder strBuilder = new StringBuilder();
-			int num;
-			char ch;
-
-			
-			String[] credentials = {userName, password};
-			
-			
-			while((num = reader.read()) != -1)
-			{
-				ch = (char) num;
-				strBuilder.append(ch);
-			}
-			String[] str = strBuilder.toString().split(" ");
-			for(int i=0; i<str.length; i+=1)
-			{
-				for(int j=0; j<credentials.length-1; j+=1)
-				{
-					if(str[i].equals(credentials[j]) && str[i+1].equals(credentials[j+1]) )
-					{
-							return true;					
-					}
-				}
-			}
 		
-	}
-		catch(Exception e)
-		{
+			Scanner scanner = new Scanner(reader);
+			String[] credentials = { userName, password };
+			
+			while (scanner.hasNextLine()) {
+				String r = scanner.nextLine();
+				String[] strArr = r.split(" ");
+				if(strArr[0].equals(userName) && strArr[1].equals(password))
+				{
+					return true;
+				}
+			}	
+			reader.close();
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		return false;
 	}
 
@@ -191,5 +200,37 @@ public class StockMethods {
 		int stock = 75;
 
 		return stock;
-	}
+	}		
+		public int retrieveStock(String name) {
+			try {
+				FileReader reader = new FileReader("D:\\MobilesDetails.txt");
+				Scanner scan = new Scanner(System.in);
+				Scanner scanner = new Scanner(reader);
+//				System.out.println("Enter Name To Search :");
+//				String name = scan.nextLine();
+				
+				while(scanner.hasNextLine())
+				{
+					
+					String str = scanner.nextLine();
+					String[] strArr = str.split(" ");
+
+					if(strArr[1].equals(name))
+					{
+						String s = strArr[2];
+						return Integer.parseInt(s);
+						//System.out.println("Age : " + strArr[2]);
+					}
+					
+				}
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			return 0;
+		}
+
+	
+	
 }

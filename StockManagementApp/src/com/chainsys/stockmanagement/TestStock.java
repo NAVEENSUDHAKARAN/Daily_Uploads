@@ -5,32 +5,45 @@ import java.util.Scanner;
 public class TestStock extends StockMethods {
 
 	public static void main(String[] args) {
-		// StockPojo pojo = new StockPojo();
+		
 		Scanner TestStock = new Scanner(System.in);
-		// ValidationChecker check = new ValidationChecker();
+		FilesPractice1 f1 = new FilesPractice1();
+		
 		StockMethods sm = new StockMethods();
-
+		UserRegister ur = new UserRegister();
+		
 		System.out.println("Stock Management System of ABC Store\n");
 
-		System.out.println("Enter UserName : ");
-		String userName = TestStock.next();
-		System.out.println("Enter Password : ");
-		String password = TestStock.next();
-
-		while (!sm.userDetailsRead(userName, password)) {
-			System.out.println("Wrong UserName or PassWord");
-			System.out.println("Enter UserName Again: ");
-			userName = TestStock.next();
-			System.out.println("Enter Password Again: ");
-			password = TestStock.next();
+		System.out.println("1 ---> New User\n2 ---> Already a User\nChoose User Type : ");
+		int userType = TestStock.nextInt();
+		
+		while (userType != 1 && userType != 2 && userType != 3 && userType != 4) {
+			System.out.println("Enter The Valid Number : ");
+			userType = TestStock.nextInt();
 		}
-
+		
+		if(userType == 1)
 		{
+			UserRegister.write();
+		}
+		else if(userType == 2)
+		{
+			System.out.println("Enter UserName : ");
+			String userName = TestStock.next();
+			System.out.println("Enter Password : ");
+			String password = TestStock.next();
 
+			while (!sm.userDetailsRead(userName, password)) {
+				System.err.println("Wrong UserName or PassWord");
+				System.out.println("Enter UserName Again: ");
+				userName = TestStock.next();
+				System.out.println("Enter Password Again: ");
+				password = TestStock.next();
+			}
 			System.out.println("LoggedIN Successfully\n");
-			System.out.println("1 ---> View Stock\n2 ---> Add Stock\n3 ---> Remove Stock");
+			System.out.println("1 ---> View Stock\n2 ---> Add Stock\n3 ---> Remove Stock\n4 ---> Add Stock Details");
 			int choose = TestStock.nextInt();
-			while (choose != 1 && choose != 2 && choose != 3) {
+			while (choose != 1 && choose != 2 && choose != 3 && choose != 4) {
 				System.out.println("Enter The Valid Number : ");
 				choose = TestStock.nextInt();
 			}
@@ -47,16 +60,17 @@ public class TestStock extends StockMethods {
 				if (opt == 1) {
 					System.out.println("\nChoose The Mobile To View Stock");
 					// System.out.println("1 ---> Asus\n2 ---> Vivo\n3 ---> Samsung");
-					sm.read("D:\\Mobiles.txt");
+					StockMethods.read("D:\\Mobiles.txt");
 					int mobileOpt = TestStock.nextInt();
 
-					while (mobileOpt != 1 && mobileOpt != 2 && mobileOpt != 3) {
+					while (mobileOpt != 1 && mobileOpt != 2 && mobileOpt != 3&& mobileOpt != 4) {
 						System.out.println("Enter The Valid Number : ");
 						mobileOpt = TestStock.nextInt();
 					}
 
 					if (mobileOpt == 1) {
-						System.out.println("The Stock of Asus is : " + sm.asus());
+						System.out.println("The Stock of Asus is : " + sm.retrieveStock("Asus"));
+						 
 						System.out.println("The Current Available Stock is : " + (sm.asus() + sm.update("Asus")));
 					} else if (mobileOpt == 2) {
 						System.out.println("The Stock of Vivo is : " + sm.vivo());
@@ -69,7 +83,7 @@ public class TestStock extends StockMethods {
 				} else if (opt == 2) {
 					System.out.println("\nChoose The Fruits To View Stock");
 					// System.out.println("1 ---> Apple\n2 ---> Mango\n3 ---> Grapes");
-					sm.read("D:\\Fruits.txt");
+					StockMethods.read("D:\\Fruits.txt");
 					int fruitOpt = TestStock.nextInt();
 
 					while (fruitOpt != 1 && fruitOpt != 2 && fruitOpt != 3) {
@@ -95,7 +109,7 @@ public class TestStock extends StockMethods {
 				} else if (opt == 3) {
 					System.out.println("\nChoose The Jewel To View Stock");
 					// System.out.println("1 ---> Chain\n2 ---> Ring\n3 ---> Bracelet");
-					sm.read("D:\\Jewellery.txt");
+					StockMethods.read("D:\\Jewellery.txt");
 					int jewelOpt = TestStock.nextInt();
 
 					while (jewelOpt != 1 && jewelOpt != 2 && jewelOpt != 3) {
@@ -132,43 +146,102 @@ public class TestStock extends StockMethods {
 				while (depChoose == 1 || depChoose == 2 || depChoose == 3 || depChoose == 0) {
 					if (depChoose == 1) {
 						System.out.println("---Add Stock of Mobiles---");
-						sm.write("D:\\Mobiles.txt");
+						StockMethods.write("D:\\Mobiles.txt");
 					} else if (depChoose == 2) {
 						System.out.println("---Add Stock of Fruits---");
-						sm.write("D:\\Fruits.txt");
+						StockMethods.write("D:\\Fruits.txt");
 					} else if (depChoose == 3) {
 						System.out.println("---Add Stock of Jewellery---");
-						sm.write("D:\\Jewellery.txt");
+						StockMethods.write("D:\\Jewellery.txt");
 					} else if (depChoose == 0) {
 						break;
 					}
 				}
 
 			} else if (choose == 3) {
-				System.out.println("Choose The Department To Remove Stock\n");
 
-				System.out.println("1 ---> Mobile\n2 ---> Fruits\n3 ---> Jewellery");
-				int removeChoose = TestStock.nextInt();
+				System.out.println("1 ---> To Remove Stock\n2 ---> To Clear Stock Details");
+				int removeCategory = TestStock.nextInt();
 
-				while (removeChoose != 1 && removeChoose != 2 && removeChoose != 3) {
+				while (removeCategory != 1 && removeCategory != 2) {
 					System.out.println("Enter The Valid Number : ");
-					removeChoose = TestStock.nextInt();
+					removeCategory = TestStock.nextInt();
 				}
 
-				if (removeChoose == 1) {
-					sm.delete("D:\\Mobiles.txt");
-					System.out.println("---Stocks Removed---");
-				} else if (removeChoose == 2) {
-					sm.delete("D:\\Fruits.txt");
-					System.out.println("---Stocks Removed---");
-				} else if (removeChoose == 3) {
-					sm.delete("D:\\Jewellery.txt");
-					System.out.println("---Stocks Removed---");
+				if (removeCategory == 1) {
+
+					System.out.println("Choose The Department To Remove Stock\n");
+
+					System.out.println("1 ---> Mobile\n2 ---> Fruits\n3 ---> Jewellery");
+					int removeChoose = TestStock.nextInt();
+
+					while (removeChoose != 1 && removeChoose != 2 && removeChoose != 3) {
+						System.out.println("Enter The Valid Number : ");
+						removeChoose = TestStock.nextInt();
+					}
+
+					if (removeChoose == 1) {
+						sm.delete("D:\\Mobiles.txt");
+						System.out.println("---Stocks Removed---");
+					} else if (removeChoose == 2) {
+						sm.delete("D:\\Fruits.txt");
+						System.out.println("---Stocks Removed---");
+					} else if (removeChoose == 3) {
+						sm.delete("D:\\Jewellery.txt");
+						System.out.println("---Stocks Removed---");
+					}
+				} else if (removeCategory == 2) {
+					System.out.println("Choose The Department To Remove Details\n");
+
+					System.out.println("1 ---> MobileDetails\n2 ---> FruitsDetails\n3 ---> JewelleryDetails");
+					int removeChoose = TestStock.nextInt();
+
+					while (removeChoose != 1 && removeChoose != 2 && removeChoose != 3) {
+						System.out.println("Enter The Valid Number : ");
+						removeChoose = TestStock.nextInt();
+					}
+
+					if (removeChoose == 1) {
+						sm.delete("D:\\MobilesDetails.txt");
+						System.out.println("---Details Removed---");
+					} else if (removeChoose == 2) {
+						sm.delete("D:\\FruitsDetails.txt");
+						System.out.println("---Details Removed---");
+					} else if (removeChoose == 3) {
+						sm.delete("D:\\JewelleryDetails.txt");
+						System.out.println("---Details Removed---");
+					}
 				}
 				TestStock.close();
-			}
-
+			} else if (choose == 4) {
+				
+				System.out.println("Choose The Department To Add the Details\n");
+				System.out.println("1 ---> Mobile\n2 ---> Fruits\n3 ---> Jewellery");
+				
+				int addDetails = TestStock.nextInt();
+				
+				while (addDetails != 1 && addDetails != 2 && addDetails != 3) {
+					System.out.println("Enter The Valid Number : ");
+					addDetails = TestStock.nextInt();
+				}
+				
+				if (addDetails == 1) {
+					StockMethods.detailsWrite("D:\\MobilesDetails.txt");
+					System.out.println("---Details Updated---");
+				} else if (addDetails == 2) {
+					StockMethods.detailsWrite("D:\\FruitsDetails.txt");
+					System.out.println("---Details Updated---");
+				} else if (addDetails == 3) {
+					StockMethods.detailsWrite("D:\\JewelleryDetails.txt");
+					System.out.println("---Details Updated---");
+				}
+				
+				
+}
 		}
+		
+
+
 
 //		System.out.println("Enter Your Name : ");
 //		String stockHolderName = TestStock.next();

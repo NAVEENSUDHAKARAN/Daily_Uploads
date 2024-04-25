@@ -9,22 +9,22 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Practice {
+public class UserRegister {
 
 	public static void main(String[] args) {
 
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Enter The Number : ");
-		int num = scanner.nextInt();
-		if(num == 1)
-		{
-			write();
-		}
-		if(num == 2)
-		{
-			read();
-		}
-		
+//		Scanner scanner = new Scanner(System.in);
+//		System.out.println("Enter The Number : ");
+//		int num = scanner.nextInt();
+//		if(num == 1)
+//		{
+//			write();
+//		}
+//		if(num == 2)
+//		{
+//			read();
+//		}
+//		
 		
 		
 	}
@@ -33,7 +33,7 @@ public class Practice {
 		Scanner scanner = new  Scanner(System.in);
 		try {
 
-			System.out.println("File Created");
+			System.out.println("<-----Register----->");
 
 			System.out.println("Enter the UserName: ");
 			String userName = scanner.next();
@@ -43,11 +43,11 @@ public class Practice {
 			
 
 			FileWriter writer = new FileWriter("D:\\UserDetails.txt", true);
-			String str = userName + " " + password + " ";
+			String str = userName + " " + password + "\n";
 			writer.write(str);
 			
 			writer.close();
-			
+			System.out.println("Registered Successfully");
 
 		} catch (IOException e) {
 			e.printStackTrace();
