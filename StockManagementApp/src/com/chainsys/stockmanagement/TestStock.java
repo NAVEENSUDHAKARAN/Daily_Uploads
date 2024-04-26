@@ -7,10 +7,8 @@ public class TestStock extends StockMethods {
 	public static void main(String[] args) {
 		
 		Scanner TestStock = new Scanner(System.in);
-		FilesPractice1 f1 = new FilesPractice1();
 		
 		StockMethods sm = new StockMethods();
-		UserRegister ur = new UserRegister();
 		
 		System.out.println("Stock Management System of ABC Store\n");
 
@@ -237,8 +235,9 @@ public class TestStock extends StockMethods {
 				}
 				
 				
-}
-		}
+			}
+
+	}
 		
 
 
