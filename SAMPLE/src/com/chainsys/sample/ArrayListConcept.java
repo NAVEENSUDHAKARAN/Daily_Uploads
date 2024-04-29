@@ -18,11 +18,11 @@ public class ArrayListConcept {
 			user.add(scanner.next());
 		}
 		
-//		System.out.println("Enter Password To Store : ");
-//		for(int i=0; i<5; i+=1)
-//		{
-//			pass.add(scanner.nextInt());
-//		}
+		System.out.println("Enter Password To Store : ");
+		for(int i=0; i<5; i+=1)
+		{
+			pass.add(scanner.nextInt());
+		}
 		
 		System.out.println("---LoggIN---");
 		System.out.println("Enter UserName : ");
@@ -34,7 +34,7 @@ public class ArrayListConcept {
 				break;
 			}
 
-		
+		scanner.close();
 	}
 	
 }
