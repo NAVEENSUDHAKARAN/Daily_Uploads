@@ -115,7 +115,7 @@ public class StockMethods {
 		}
 	}
 
-	public boolean userDetailsRead(String userName, String password) {
+	public static boolean userDetailsRead(String userName, String password) {
 		try {
 			FileReader reader = new FileReader("D:\\UserDetails.txt");
 		
@@ -138,6 +138,7 @@ public class StockMethods {
 		
 		return false;
 	}
+
 
 	public int asus() {
 
@@ -201,9 +202,9 @@ public class StockMethods {
 
 		return stock;
 	}		
-		public int retrieveStock(String name) {
+		public String retrieveStockName(String path, String name) {
 			try {
-				FileReader reader = new FileReader("D:\\MobilesDetails.txt");
+				FileReader reader = new FileReader(path);
 				Scanner scan = new Scanner(System.in);
 				Scanner scanner = new Scanner(reader);
 //				System.out.println("Enter Name To Search :");
@@ -217,9 +218,7 @@ public class StockMethods {
 
 					if(strArr[1].equals(name))
 					{
-						String s = strArr[2];
-						return Integer.parseInt(s);
-						//System.out.println("Age : " + strArr[2]);
+						return strArr[1];
 					}
 					
 				}
@@ -228,9 +227,9 @@ public class StockMethods {
 			{
 				e.printStackTrace();
 			}
-			return 0;
+			return "empty";
 		}
-
-	
+		
+		
 	
 }
