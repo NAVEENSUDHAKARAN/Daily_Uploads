@@ -3,6 +3,8 @@ package com.chainsys.stockmanagement;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class StockMethods {
@@ -231,5 +233,9 @@ public class StockMethods {
 		}
 		
 		
+
+		
+		
 	
 }
+
