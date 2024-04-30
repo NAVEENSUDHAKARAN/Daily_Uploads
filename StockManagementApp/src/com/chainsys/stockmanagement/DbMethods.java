@@ -13,13 +13,13 @@ public class DbMethods {
 		ConnectUtil connect = new ConnectUtil();
 		Connection connection = connect.getConnection();
 		
-		String query = "insert into stock values (\"NAVEEN\", \"Grapes\", 7654321, 34, 65000, 60000, \"Madurai\")";
+		String query = "insert into stock values (\"NAVEEN\", \"Vivo\", 7654321, 34, 65000, 60000, \"Madurai\")";
 		
 		PreparedStatement prepareStatement = connection.prepareStatement(query);
 
 		int rows = prepareStatement.executeUpdate();
 		
-		System.out.println(rows);
+		System.out.println("Rows Affected : " + rows);
 	}
 	
 	public static void read() throws ClassNotFoundException, SQLException {

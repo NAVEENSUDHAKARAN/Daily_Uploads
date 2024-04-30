@@ -13,11 +13,11 @@ public class ConnectUtil {
 	
 		DbMethods dbm = new DbMethods();
 		
-//		dbm.insert();
+		dbm.insert();
 		
 //		dbm.update();
-		dbm.delete();
-		dbm.read();
+//		dbm.delete();
+//		dbm.read();
 	}
 	
 		public static Connection getConnection() throws ClassNotFoundException, SQLException{
