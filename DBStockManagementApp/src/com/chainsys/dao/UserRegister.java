@@ -1,33 +1,13 @@
-package com.chainsys.stockmanagement;
+package com.chainsys.dao;
 
-import java.io.File;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
+
 import java.util.Scanner;
 
 public class UserRegister {
-
-	public static void main(String[] args) {
-
-//		Scanner scanner = new Scanner(System.in);
-//		System.out.println("Enter The Number : ");
-//		int num = scanner.nextInt();
-//		if(num == 1)
-//		{
-//			write();
-//		}
-//		if(num == 2)
-//		{
-//			read();
-//		}
-//		
-		
-		
-	}
 	
 	public static void write() {
 		Scanner scanner = new  Scanner(System.in);
@@ -52,6 +32,7 @@ public class UserRegister {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		scanner.close();
 	}
 	
 	public static void read() {
@@ -70,8 +51,8 @@ public class UserRegister {
 			{
 				System.out.println(str[i]);
 			}
-						
-					}
+				reader.close();		
+	}
 		catch(Exception e)
 		{
 			e.printStackTrace();

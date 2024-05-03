@@ -1,7 +1,9 @@
-package com.chainsys.stockmanagement;
+package com.chainsys.dao;
 
 import java.io.FileReader;
 import java.util.Scanner;
+
+import com.chainsys.dao.*;
 
 public class MethodAbstracts implements StockMethodsInterface{
 

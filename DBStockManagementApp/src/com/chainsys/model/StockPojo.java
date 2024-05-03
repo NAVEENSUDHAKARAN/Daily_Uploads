@@ -1,4 +1,4 @@
-package com.chainsys.stockmanagement;
+package com.chainsys.model;
 
 public class StockPojo {
 

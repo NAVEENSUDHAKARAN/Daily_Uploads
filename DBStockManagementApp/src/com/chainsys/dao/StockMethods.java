@@ -1,4 +1,4 @@
-package com.chainsys.stockmanagement;
+package com.chainsys.dao;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -7,12 +7,17 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import com.chainsys.dao.*;
+import com.chainsys.model.StockPojo;
+import com.chainsys.dao.*;
+
 public class StockMethods {
 
 	Scanner stockMethods = new Scanner(System.in);
 	StringBuilder strBuilder = new StringBuilder();
 	StockPojo pojo = new StockPojo();
 	DbMethods db = new DbMethods();
+	ValidationChecker check = new ValidationChecker();
 	
 	public void lowStock() {
 		System.out.println("Your Stock Quantity is Below 10 Consider Buying !!!");
@@ -133,70 +138,7 @@ public class StockMethods {
 		
 		return false;
 	}
-
-
-	public int asus() {
-
-		int asusStock = 10;
-
-		return asusStock;
-	}
-
-	public int vivo() {
-
-		int vivoStock = 15;
-
-		return vivoStock;
-	}
-
-	public int samsung() {
-
-		int samsungStock = 20;
-
-		return samsungStock;
-	}
-
-	public int apple() {
-
-		int stock = 5;
-
-		return stock;
-	}
-
-	public int mango() {
-
-		int stock = 7;
-
-		return stock;
-	}
-
-	public int grapes() {
-
-		int stock = 8;
-
-		return stock;
-	}
-
-	public int chain() {
-
-		int stock = 70;
-
-		return stock;
-	}
-
-	public int ring() {
-
-		int stock = 55;
-
-		return stock;
-	}
-
-	public int bracelet() {
-
-		int stock = 75;
-
-		return stock;
-	}		
+		
 		public String retrieveStockName(String path, String name) {
 			try {
 				FileReader reader = new FileReader(path);
@@ -247,35 +189,51 @@ public class StockMethods {
 				pojo.setCostPrice(price);
 				
 				db.insert(pojo);
-				scanner.close();
+				
 				
 		}
 		
-		void sqlDetailsRead() throws ClassNotFoundException, SQLException {
+		public void sqlDetailsRead() throws ClassNotFoundException, SQLException {
 			Scanner scanner = new Scanner(System.in);
 			
 			System.out.println("Enter The ID of The Product to View : ");
 			int id = scanner.nextInt();
-			
+			while(!check.Numerics(id))
+			{
+				System.err.println("Invalid Data\nAgain Enter The ID of The Product to View : ");
+				id = scanner.nextInt();
+			}
 			db.read(id);
-			scanner.close();
 			
 		}
 		
-		void sqlStocksRead(int id1, int id2) throws ClassNotFoundException, SQLException {
+		public void sqlStocksRead(int id1, int id2) throws ClassNotFoundException, SQLException {
 			Scanner scanner = new Scanner(System.in);
 						
 			db.readStock(id1, id2);
-			scanner.close();
+			
 			
 		}
 		
-		void sqlAddStock(String name) throws ClassNotFoundException, SQLException {
+		public void sqlAddStock(String name) throws ClassNotFoundException, SQLException {
 		
 			System.out.println(db.retrieveStock(name));
 			int updatedStock = db.retrieveStock(name)+update(name);
 			System.out.println("Updated Stock is : " + updatedStock);
 			db.updateDb(updatedStock, name);
+		}
+		
+		public void sqlRemoveStock() throws ClassNotFoundException, SQLException {
+			Scanner scanner = new Scanner(System.in);
+		
+			System.out.println("Enter The Product Name to Delete : ");
+			String name = scanner.next();
+			while(!db.validRead(name))
+			{
+				System.err.println("Invalid Data\nEnter The Product Name to Delete : ");
+				name = scanner.next();
+			}
+			db.delete(name);
 		}
 	
 }

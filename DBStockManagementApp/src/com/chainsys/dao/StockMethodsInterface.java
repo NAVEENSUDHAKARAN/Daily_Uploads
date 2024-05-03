@@ -1,4 +1,4 @@
-package com.chainsys.stockmanagement;
+package com.chainsys.dao;
 
 public interface StockMethodsInterface {
 

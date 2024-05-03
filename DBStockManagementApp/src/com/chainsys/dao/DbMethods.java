@@ -1,10 +1,13 @@
-package com.chainsys.stockmanagement;
+package com.chainsys.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+
+import com.chainsys.model.*;
+import com.chainsys.util.ConnectUtil;
 
 public class DbMethods {
 	
@@ -29,11 +32,35 @@ public class DbMethods {
 		System.out.println("Inserted To DB!!!");
 	}
 	
+	public static boolean validRead(String name) throws ClassNotFoundException, SQLException {
+		ConnectUtil connect = new ConnectUtil();
+		Connection connection = connect.getConnection();
+		
+		String query = "Select ID,Product_Name,Number_of_Stock,Stocked_Date ,Price from Add_Stock_Details where Product_Name = ?";
+		PreparedStatement prep = connection.prepareStatement(query);
+		
+		prep.setString(1, name);
+		ResultSet rows = prep.executeQuery();
+		ResultSetMetaData metaData = rows.getMetaData();
+		int columnCount = metaData.getColumnCount();
+		System.out.println(columnCount);
+		
+		while(rows.next())
+		{
+			for(int i=1; i<=columnCount; i+=1)	
+			{
+				return true;
+			}
+			System.out.println();
+		}
+		return false;
+	}
+	
 	public static void read(int id) throws ClassNotFoundException, SQLException {
 		ConnectUtil connect = new ConnectUtil();
 		Connection connection = connect.getConnection();
 		
-		String query = "select * from Add_Stock_Details where ID = ?";
+		String query = "select ID,Product_Name,Number_of_Stock,Stocked_Date ,Price from Add_Stock_Details where ID = ?";
 		PreparedStatement prepareStatement = connection.prepareStatement(query);
 
 		prepareStatement.setInt(1, id);
@@ -64,7 +91,7 @@ public class DbMethods {
 		ConnectUtil connect = new ConnectUtil();
 		Connection connection = connect.getConnection();
 		
-		String query = "select * from Add_Stock_Details where ID >= ? and ID < ?";
+		String query = "select ID,Product_Name,Number_of_Stock,Stocked_Date ,Price from Add_Stock_Details where ID >= ? and ID < ?";
 		PreparedStatement prepareStatement = connection.prepareStatement(query);
 
 		prepareStatement.setInt(1, id1);
@@ -125,19 +152,20 @@ public class DbMethods {
 		PreparedStatement prepareStatement = connection.prepareStatement(query);
 		prepareStatement.setInt(1, updatedStock);
 		prepareStatement.setString(2, name);
-		int rows = prepareStatement.executeUpdate();
 		
+		int rows = prepareStatement.executeUpdate();
 		System.out.println("Rows Affected : " + rows);
 		
 	}
 	
-	public static void delete() throws ClassNotFoundException, SQLException {
+	public static void delete(String name) throws ClassNotFoundException, SQLException {
 		ConnectUtil connect = new ConnectUtil();
 		Connection connection = connect.getConnection();
 		
-		String query = "delete from stock where Product_Name = 'Mango'";
+		String query = "delete from Add_Stock_Details where Product_Name = ?";
 		
 		PreparedStatement prepareStatement = connection.prepareStatement(query);
+		prepareStatement.setString(1, name);
 		
 		int rows = prepareStatement.executeUpdate();
 		System.out.println("Rows Affected : " + rows);
