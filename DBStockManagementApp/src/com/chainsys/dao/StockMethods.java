@@ -144,8 +144,6 @@ public class StockMethods {
 				FileReader reader = new FileReader(path);
 				Scanner scan = new Scanner(System.in);
 				Scanner scanner = new Scanner(reader);
-//				System.out.println("Enter Name To Search :");
-//				String name = scan.nextLine();
 				
 				while(scanner.hasNextLine())
 				{

@@ -37,4 +37,14 @@ public class ValidationChecker {
 			}
 			return true;
 		}
+		
+		public boolean phoneNumber(String number)
+		{
+			String phoneNumberPattern = "[0-9]+$";
+			if(number.matches(phoneNumberPattern) && number.length() == 10)
+			{
+				return true;
+			}
+			return false;
+		}
 }

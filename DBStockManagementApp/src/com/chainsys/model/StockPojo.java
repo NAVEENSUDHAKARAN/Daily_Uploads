@@ -2,6 +2,8 @@ package com.chainsys.model;
 
 public class StockPojo {
 
+	String adminName;
+	int password;
 	String productName, stockedDate;
 	int id, numberOfStock;
 	double costPrice;
@@ -34,6 +36,19 @@ public class StockPojo {
 	}
 	public void setCostPrice(double costPrice) {
 		this.costPrice = costPrice;
+	}
+	
+	public String getAdminName() {
+		return adminName;
+	}
+	public void setAdminName(String adminName) {
+		this.adminName = adminName;
+	}
+	public int getPassword() {
+		return password;
+	}
+	public void setPassword(int password) {
+		this.password = password;
 	}
 	@Override
 	public String toString() {
