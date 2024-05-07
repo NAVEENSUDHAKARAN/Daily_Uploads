@@ -15,8 +15,9 @@ public class UserEndManagement {
 		ValidationChecker check = new ValidationChecker();
 		ConnectUtil connect = new ConnectUtil();
 		Connection connection = ConnectUtil.getConnection();
-		DbMethods db = new DbMethods();
+		ServerManager db = new ServerManager();
 		ArrayList list = new ArrayList();
+		StockModules sm = new StockModules();
 		
 		int totalAmount = 0;
 		
@@ -37,12 +38,7 @@ public class UserEndManagement {
 		}
 		
 		System.out.println("1 ---> Enter 1 to Purchase\n2 ---> Enter 2 to Quit");
-		int choose = UserEnd.nextInt();
-		
-		while (choose != 1 && choose != 2) {
-			System.err.println("Enter The Valid Number : ");
-			choose = UserEnd.nextInt();
-		}
+		int choose = check.IoMismatch2();
 		
 		boolean stop = true;
 		while(stop)
@@ -51,11 +47,7 @@ public class UserEndManagement {
 			{
 				System.out.println("\nChoose The Department");
 				System.out.println("0 ---> Quit\n1 ---> Mobile\n2 ---> Fruits\n3 ---> Jewellery");
-				int opt = UserEnd.nextInt();
-				while (opt != 1 && opt != 2 && opt != 3 && opt != 0) {
-					System.err.println("Enter The Valid Number : ");
-					opt = UserEnd.nextInt();
-				}
+				int opt = check.IoMismatch4();
 
 				if(opt == 0)					
 				{
@@ -72,7 +64,7 @@ public class UserEndManagement {
 				if (opt == 1) {
 					System.out.println("\nChoose The Mobile To View Stock");
 
-					DbMethods.readStock(101, 200);
+					ServerManager.readStock(101, 200);
 					System.out.println("Choose the Product ID to purchase : ");
 					int purchase = UserEnd.nextInt();
 					while(purchase <=100 || purchase >=201)
@@ -82,19 +74,26 @@ public class UserEndManagement {
 					}
 					System.out.println("Choose Number of Products to Purchase : ");
 					int purchaseCount = UserEnd.nextInt();
-					
-					list.add(DbMethods.displayStock(purchase));
-					System.out.println(list);
 	
-					int purchasedStock =  db.retrieveStockUsingId(purchase)- purchaseCount;
-					db.updateStock(purchasedStock, purchase);
-					
-					totalAmount += (DbMethods.amountCalculate(purchase) * purchaseCount);
+					if(db.retrieveStockUsingId(purchase)<=0 || db.retrieveStockUsingId(purchase) < purchaseCount)
+					{
+						System.err.println("!!!Out of Stock!!!");
+						sm.orderStock(purchase);
+					}
+					else
+					{
+						list.add(ServerManager.displayStock(purchase));
+						System.out.println(list);
+						int purchasedStock =  db.retrieveStockUsingId(purchase)- purchaseCount;
+						db.updateStock(purchasedStock, purchase);
+						
+						totalAmount += (ServerManager.amountCalculate(purchase) * purchaseCount);
+					}
 					
 				} else if (opt == 2) {
 					System.out.println("\nChoose The Fruits To View Stock");
 
-					DbMethods.readStock(201, 300);
+					ServerManager.readStock(201, 300);
 					System.out.println("Choose the Product ID to purchase : ");
 					int purchase = UserEnd.nextInt();
 					while(purchase <=200 || purchase >=301)
@@ -104,18 +103,29 @@ public class UserEndManagement {
 					}
 					System.out.println("Choose Number of Products to Purchase : ");
 					int purchaseCount = UserEnd.nextInt();
-					list.add(DbMethods.displayStock(purchase));
-					System.out.println(list);
-
-					int purchasedStock =  db.retrieveStockUsingId(purchase)- purchaseCount;
-					db.updateStock(purchasedStock, purchase);
 					
-					totalAmount += (DbMethods.amountCalculate(purchase) * purchaseCount);
+
+					if(db.retrieveStockUsingId(purchase)<=0 || db.retrieveStockUsingId(purchase) < purchaseCount)
+					{
+						System.err.println("!!!Out of Stock!!!");
+						sm.orderStock(purchase);
+						
+					}
+					else	
+					{
+						list.add(ServerManager.displayStock(purchase));
+						System.out.println(list);
+						int purchasedStock =  db.retrieveStockUsingId(purchase)- purchaseCount;
+						db.updateStock(purchasedStock, purchase);
+						
+						totalAmount += (ServerManager.amountCalculate(purchase) * purchaseCount);
+					}
+					
 					
 				} else if (opt == 3) {
 					System.out.println("\nChoose The Jewel To View Stock");
 
-					DbMethods.readStock(301, 400);
+					ServerManager.readStock(301, 400);
 					System.out.println("Choose the Product ID to purchase : ");
 					int purchase = UserEnd.nextInt();
 					while(purchase <=300 ||purchase >=401)
@@ -126,13 +136,22 @@ public class UserEndManagement {
 					System.out.println("Choose Number of Products to Purchase : ");
 					int purchaseCount = UserEnd.nextInt();
 					
-					list.add(DbMethods.displayStock(purchase));
-					System.out.println(list);
+								
+					if(db.retrieveStockUsingId(purchase)<=0 || db.retrieveStockUsingId(purchase) < purchaseCount)
+					{
+						System.err.println("!!!Out of Stock!!!");
+						sm.orderStock(purchase);
+					}
+					else
+					{
+						list.add(ServerManager.displayStock(purchase));
+						System.out.println(list);
+						int purchasedStock =  db.retrieveStockUsingId(purchase)- purchaseCount;
+						db.updateStock(purchasedStock, purchase);
+						
+						totalAmount += (ServerManager.amountCalculate(purchase) * purchaseCount);
+					}
 					
-					int purchasedStock =  db.retrieveStockUsingId(purchase)- purchaseCount;
-					db.updateStock(purchasedStock, purchase);
-					
-					totalAmount += (DbMethods.amountCalculate(purchase) * purchaseCount);
 					
 				}
 			}

@@ -5,32 +5,24 @@ import java.util.Scanner;
 
 public class ProductManagement {
 
-	public static void productManagement() throws ClassNotFoundException, SQLException {
+	public void productManagement() throws ClassNotFoundException, SQLException {
 
 		Scanner productManagement = new Scanner(System.in);
-		StockMethods sm = new StockMethods();
-		DbMethods db = new DbMethods();
+		StockModules sm = new StockModules();
+		ServerManager db = new ServerManager();
 		ValidationChecker check = new ValidationChecker();
 
 		boolean run = true;
 
 		while (run) {
 			System.out.println(
-					"1 ---> View Stock\n2 ---> Add Stock\n3 ---> Remove Stock\n4 ---> Add Stock Details\n5 ---> View Stock Details\n6 ---> Quit");
-			int choose = productManagement.nextInt();
-			while (choose != 1 && choose != 2 && choose != 3 && choose != 4 && choose != 5 && choose != 6) {
-				System.err.println("Enter The Valid Number : ");
-				choose = productManagement.nextInt();
-			}
+					"1 ---> View Stock\n2 ---> Add Stock\n3 ---> Remove Stock\n4 ---> Add Stock Details\n5 ---> View Stock Details\n6 ---> Inspect Stock\n7 ---> Quit");
+			int choose = check.IoMismatchProductManagementOptions();
 
 			if (choose == 1) {
 				System.out.println("\nChoose The Department");
 				System.out.println("1 ---> Mobile\n2 ---> Fruits\n3 ---> Jewellery\nq ---> Quit");
-				int opt = productManagement.nextInt();
-				while (opt != 1 && opt != 2 && opt != 3 && opt != 'q') {
-					System.err.println("Enter The Valid Number : ");
-					opt = productManagement.nextInt();
-				}
+				int opt = check.IoMismatchDepartment();
 
 				if(opt == 'q')
 				{
@@ -56,12 +48,7 @@ public class ProductManagement {
 
 				System.out.println("1 ---> Mobile\n2 ---> Fruits\n3 ---> Jewellery");
 
-				int depChoose = productManagement.nextInt();
-
-				while (depChoose != 1 && depChoose != 2 && depChoose != 3) {
-					System.err.println("Enter The Valid Number : ");
-					depChoose = productManagement.nextInt();
-				}
+				int depChoose = check.IoMismatch3();
 
 				if (depChoose == 1) {
 					System.out.println("---Add Stock of Mobiles---");
@@ -104,12 +91,7 @@ public class ProductManagement {
 				System.out.println("Choose The Department To Remove Stock\n");
 
 				System.out.println("1 ---> Mobile\n2 ---> Fruits\n3 ---> Jewellery");
-				int removeChoose = productManagement.nextInt();
-
-				while (removeChoose != 1 && removeChoose != 2 && removeChoose != 3) {
-					System.err.println("Enter The Valid Number : ");
-					removeChoose = productManagement.nextInt();
-				}
+				int removeChoose = check.IoMismatch3();
 
 				if (removeChoose == 1) {
 					db.readStock(101, 200);
@@ -131,12 +113,7 @@ public class ProductManagement {
 				System.out.println("Choose The Department To Add the Details\n");
 				System.out.println("1 ---> Mobile\n2 ---> Fruits\n3 ---> Jewellery");
 
-				int addDetails = productManagement.nextInt();
-
-				while (addDetails != 1 && addDetails != 2 && addDetails != 3) {
-					System.err.println("Enter The Valid Number : ");
-					addDetails = productManagement.nextInt();
-				}
+				int addDetails = check.IoMismatch3();
 
 				if (addDetails == 1) {
 					sm.sqlDetailsWrite();
@@ -157,7 +134,12 @@ public class ProductManagement {
 				sm.sqlDetailsRead();
 
 			} else if (choose == 6) {
+				db.inspectStock();
+			}
+			else if(choose == 7)
+			{
 				run = false;
+				
 			}
 
 		}

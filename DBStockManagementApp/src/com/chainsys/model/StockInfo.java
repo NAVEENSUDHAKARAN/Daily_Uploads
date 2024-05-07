@@ -1,6 +1,6 @@
 package com.chainsys.model;
 
-public class StockPojo {
+public class StockInfo {
 
 	String adminName;
 	int password;

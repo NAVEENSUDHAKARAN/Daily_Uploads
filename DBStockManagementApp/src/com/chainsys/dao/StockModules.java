@@ -8,15 +8,15 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.chainsys.dao.*;
-import com.chainsys.model.StockPojo;
+import com.chainsys.model.StockInfo;
 import com.chainsys.dao.*;
 
-public class StockMethods {
+public class StockModules {
 
 	Scanner stockMethods = new Scanner(System.in);
 	StringBuilder strBuilder = new StringBuilder();
-	StockPojo pojo = new StockPojo();
-	DbMethods db = new DbMethods();
+	StockInfo pojo = new StockInfo();
+	ServerManager db = new ServerManager();
 	ValidationChecker check = new ValidationChecker();
 	
 	public void lowStock() {
@@ -232,6 +232,19 @@ public class StockMethods {
 				name = scanner.next();
 			}
 			db.delete(name);
+		}
+		
+		public void orderStock(int id) throws ClassNotFoundException, SQLException {
+			System.out.println("Would You Like to Order The Stocks(y or n) : ");
+			String ch = stockMethods.next();
+			
+			if(ch.toLowerCase().equals("y"))
+			{
+				System.out.println("Enter The Number of Products to Order : ");
+				int stockOrder = stockMethods.nextInt();
+				
+				db.updateOrder(stockOrder, id);
+			}
 		}
 	
 }

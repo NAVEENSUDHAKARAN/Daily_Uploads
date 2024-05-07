@@ -12,14 +12,14 @@ import java.util.Queue;
 import com.chainsys.model.*;
 import com.chainsys.util.ConnectUtil;
 
-public class DbMethods {
+public class ServerManager {
 
-	public void insert(StockPojo pojo) throws ClassNotFoundException, SQLException {
+	public void insert(StockInfo pojo) throws ClassNotFoundException, SQLException {
 
 		ConnectUtil connect = new ConnectUtil();
 		Connection connection = connect.getConnection();
 
-		String query = "insert into Add_Stock_Details values (?,?,?,?,?)";
+		String query = "insert into Add_Stock_Details values (?,?,?,?,?,?)";
 		PreparedStatement prepareStatement = connection.prepareStatement(query);
 
 		prepareStatement.setInt(1, pojo.getId());
@@ -27,14 +27,14 @@ public class DbMethods {
 		prepareStatement.setInt(3, pojo.getNumberOfStock());
 		prepareStatement.setString(4, pojo.getStockedDate());
 		prepareStatement.setDouble(5, pojo.getCostPrice());
-
+		prepareStatement.setInt(6, 0);
 		int rows = prepareStatement.executeUpdate();
 
 		System.out.println("Rows Affected : " + rows);
 		System.out.println("Inserted To DB!!!");
 	}
 	
-	public void insertUserCred(StockPojo pojo) throws ClassNotFoundException, SQLException {
+	public void insertUserCred(StockInfo pojo) throws ClassNotFoundException, SQLException {
 		ConnectUtil connect = new ConnectUtil();
 		Connection connection = connect.getConnection();
 		
@@ -290,6 +290,45 @@ public class DbMethods {
 		int rows = prepareStatement.executeUpdate();
 		
 
+	}
+	
+	public static void inspectStock() throws ClassNotFoundException, SQLException {
+		ConnectUtil connect = new ConnectUtil();
+		Connection connection = connect.getConnection();
+		
+		String query = "select ID,Product_Name,Number_of_Stock,Customer_Order ,Price from Add_Stock_Details where Number_of_Stock <= 10";
+		
+		PreparedStatement prep = connection.prepareStatement(query);
+		
+		ResultSet rows = prep.executeQuery();
+
+		ResultSetMetaData metaData = rows.getMetaData();
+		int columnCount = metaData.getColumnCount();
+		System.out.println(columnCount);
+		for (int i = 1; i <= columnCount; i += 1) {
+			System.out.print(metaData.getColumnName(i) + " \t ");
+		}
+		System.out.println();
+
+		while (rows.next()) {
+			for (int i = 1; i <= columnCount; i += 1) {
+				System.err.print(rows.getString(i) + "\t\t");
+			}
+			System.out.println();
+		}
+		
+	}
+	
+	public static void updateOrder(int order, int id) throws ClassNotFoundException, SQLException {
+		ConnectUtil connect = new ConnectUtil();
+		Connection connection = connect.getConnection();
+		
+		String query = "update Add_Stock_Details set Customer_Order = ? where ID = ?";
+		PreparedStatement prepareStatement = connection.prepareStatement(query);
+		prepareStatement.setInt(1, order);
+		prepareStatement.setInt(2, id);
+
+		int rows = prepareStatement.executeUpdate();
 	}
 	
 
