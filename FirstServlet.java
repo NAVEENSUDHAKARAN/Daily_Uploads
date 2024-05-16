@@ -2,14 +2,23 @@ package com.chainsys.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.chainsys.dao.ServerManager;
+import com.chainsys.util.ConnectUtil;
 
 /**
  * Servlet implementation class FirstServlet
@@ -17,7 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/FirstServlet")
 public class FirstServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+     ServerManager manager = new ServerManager();
+     UserData user = new UserData();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -30,28 +40,10 @@ public class FirstServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		String name = request.getParameter("Name");
-		String date = request.getParameter("DOB");
-		String empId = request.getParameter("EmpID");
-		int number = Integer.parseInt(empId);
-		PrintWriter out = response.getWriter();
-		out.println("Name : " + name);
-		out.println("Date : " + date);
-		out.println("Employee ID : " + number);
-		System.out.println(name);
-		System.out.println(date);
-		System.out.println(number);
-
-		ArrayList<String> arrList = new ArrayList<String>();
-		arrList.add(name);
-		arrList.add(date);
-		arrList.add(empId);
-		System.out.println("Array List : " + arrList);
-		
-		response.sendRedirect("Display.html");
-	;
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+		RequestDispatcher dispatcher = request.getRequestDispatcher("RegistrationSuccessful.jsp");
+		dispatcher.forward(request, response);
+	
 	}
 
 	/**
@@ -61,6 +53,31 @@ public class FirstServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		
-	}
+		String name = request.getParameter("Name");
+		String date = request.getParameter("DOB");
+		String empId = request.getParameter("EmpId");
+		int number = Integer.parseInt(empId);
+		PrintWriter out = response.getWriter();
 
+//		UserData.setData(name, date, empId);
+//		request.setAttribute("data", UserData.getData());
+		
+		UserDetails d = new UserDetails(name, date, empId);
+		try {
+			manager.insertToDB(d);
+		} catch (ClassNotFoundException e) {
+			
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		response.sendRedirect("");
+		request.getRequestDispatcher("Display.jsp").forward(request, response);
+		
+	}
+	
+	
 }
